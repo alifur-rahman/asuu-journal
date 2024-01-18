@@ -1,6 +1,7 @@
 <?php
 session_start();
+$rootDir = "asuu-journal";
 unset($_SESSION["username"]);
 unset($_SESSION["role"]);
-header("Location:https://ejournals.asuu.org.ng/");
+header("Location:/" . $rootDir . "/login");
 ?>

@@ -5,7 +5,6 @@ require_once('config.php');
 if (!isset($_SESSION['username'])) {
 	header("Location: /login");
 }
-var_dump($_SESSION);
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,10 +24,13 @@ var_dump($_SESSION);
 	<link
 		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap"
 		rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/footer.css">
 	<link href="css/style.css" rel="stylesheet">
 	<link href="css/editor_board.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="../css/AL_Developer.css">
+
+	<!-- <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> -->
 	<style>
 		.dropdown-menu.al-menu-right {
 			left: -214px;
@@ -125,7 +127,9 @@ var_dump($_SESSION);
 								<ul class="dropdown-menu al-menu-right" role="menu" style="display: none;">
 									<li nav-item my-auto><a class="" href="user-profile.php"><span>Profile
 											</span> </a></li>
-									<li nav-item my-auto><a class="" href="add-user.php"><span>Add User</span> </a></li>
+									<li nav-item my-auto><a class="" href="add-user.php"><span>Assign Reviewer</span>
+										</a>
+									</li>
 									<li nav-item my-auto><a class="" href="list-user.php"><span>List of Reviewers</span>
 										</a></li>
 									<li nav-item my-auto><a class="" href="change-passwod.php"><span>Change Password

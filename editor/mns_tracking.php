@@ -167,6 +167,7 @@ $user_email = $_SESSION['username'];
 						echo "<h3 style='font-size:30px;color:#f00;'>" . "There are No Any post!";
 					} else {
 						$result = $stm->fetchAll(PDO::FETCH_ASSOC);
+						$id = 1;
 						foreach ($result as $row):
 							$a = $id++;
 							?>
@@ -407,8 +408,8 @@ $user_email = $_SESSION['username'];
 				$stm->execute(array($user_email));
 				$Ubooks = $stm->rowCount();
 				// $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-				echo $user_email;
-
+				// echo $user_email;
+				
 
 				if ($Ubooks > 0) {
 					$total_record = $Ubooks;
@@ -510,7 +511,7 @@ $user_email = $_SESSION['username'];
 				var rank_array = JSON.parse(response);
 				var p_area = "";
 				for (let index = 0; index < rank_array.length; index++) {
-					var full_name = rank_array[index].fname + " " + rank_array[index].mName + " " + rank_array[index].lname
+					var full_name = rank_array[index].fname + " " + rank_array[index].onames;
 					p_area += "<option value='" + full_name + "'>" + full_name + "</option>";
 				}
 				document.getElementById('name').innerHTML = "<option value='alif' selected>---- Names----</option>" + p_area;
