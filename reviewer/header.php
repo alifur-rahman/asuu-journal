@@ -1,12 +1,13 @@
 <?php
 session_start();
 require_once('config.php');
-if (!isset($_SESSION['username'])){ 
-  header("Location: /login");
+if (!isset($_SESSION['username'])) {
+	header("Location: /login");
 }
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Home - ASUU Ejournals</title>
 	<meta charset="utf-8">
@@ -32,7 +33,8 @@ if (!isset($_SESSION['username'])){
 			right: 45px;
 			top: 7%;
 		}
-			.al_sub span {
+
+		.al_sub span {
 			display: inline-block;
 			min-width: 10px;
 			padding: 3px 7px;
@@ -48,6 +50,7 @@ if (!isset($_SESSION['username'])){
 			margin-top: 5px;
 			margin-left: 8px;
 		}
+
 		.dropdown-menu.al-menu-right {
 			left: -214px;
 		}
@@ -55,91 +58,93 @@ if (!isset($_SESSION['username'])){
 		.search-field.all {
 			margin: 0 10px;
 		}
+
 		.site-footer {
 			position: fixed;
 			bottom: 0;
 			width: 100%;
 			z-index: 11111;
 		}
+
 		.main_content {
 			margin-bottom: 100px;
 		}
-    </style>
+	</style>
 </head>
+
 <body>
 	<div class="main-body">
-		
+
 
 		<header id="main_header" class="fixed-top">
 			<div class="header_wrapper">
-				
-			
+
+
 				<!-- nav header starts -->
-			<nav id="navbar_main" class="navbar navbar-expand-md h-100">
-				<!-- Brand -->
-				<a class="navbar-brand" href="#"><img src="img/logoj.png"></a>
+				<nav id="navbar_main" class="navbar navbar-expand-md h-100">
+					<!-- Brand -->
+					<a class="navbar-brand" href="#"><img src="img/logoj.png"></a>
 
-				<!-- Toggler/collapsibe Button -->
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-					<span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-				</button>
+					<!-- Toggler/collapsibe Button -->
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+						<span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+					</button>
 
-				<!-- Navbar links -->
-				<div class="collapse navbar-collapse" id="collapsibleNavbar">
-					<ul class="navbar-nav ml-auto text_custom_center">	
-						<li class="nav-item my-auto">
-							<a class="nav-link" href="index.php"><span>Home</span> </a>
-						</li>
+					<!-- Navbar links -->
+					<div class="collapse navbar-collapse" id="collapsibleNavbar">
+						<ul class="navbar-nav ml-auto text_custom_center">
 							<li class="nav-item my-auto">
-							<a class="nav-link" href="#"><span>Current issue</span></a>
-						<li class="dropdown nav-item my-auto">
-							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><span>For Authors</span> </a>
-							<ul class="dropdown-menu" role="menu" style="display: none;">
-								<li nav-item my-auto><a class="" href="journal-of-humanitise.php"><span>ASUU Journal of Humanities
-                                    </span> </a></li>                
-								<li nav-item my-auto><a class="" href="journal-social-science.php"><span>ASUU Journal of Social Sciences
-                                        </span> </a></li>                
-								<li nav-item my-auto><a class="" href="journal-science.php"><span>ASUU Journal of Science
-                                    </span> </a></li>                
-								                
-							</ul>
-						</li>
-					
-						<li class="nav-item my-auto pr-3 d-none d-lg-block">
-							<span>
-							   Hi : <?php 
-							 	$alif = $pdo->prepare("SELECT fname,lname FROM ejournal_users WHERE email=?");
-								 $alif->execute(array($_SESSION['username']));
-								 $data_array = $alif->fetchAll(PDO::FETCH_ASSOC);
-								  $first_name = $data_array[0]['fname'] .' '. $data_array[0]['lname'];  
-							   echo $first_name;
-							   
-							   
-							   ?>
-							   
-							</span>
-						</li>
-						<li class="dropdown nav-item my-auto">
-							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><span> <i class="fas fa-user    "></i> </span> </a>
-							<ul class="dropdown-menu al-menu-right" role="menu" style="display: none;">
-								<li nav-item my-auto><a class="" href="user-profile.php"><span>Profile
-                                    </span> </a></li>
-							 <li nav-item my-auto><a class="" href="change-passwod.php"><span>Change Password
-                                    </span> </a></li> 
-							 <li nav-item my-auto><a class="" href="logout.php"><span>logout
-                                    </span> </a></li>                   
-							
-								                
-							</ul>
-						</li>
-						
-					</ul>
-				</div>
-			</nav>
-			<!-- nav header ends -->
+								<a class="nav-link" href="index.php"><span>Home</span> </a>
+							</li>
+							<li class="nav-item my-auto">
+								<a class="nav-link" href="#"><span>Current issue</span></a>
+							<li class="dropdown nav-item my-auto">
+								<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><span>For Authors</span> </a>
+								<ul class="dropdown-menu" role="menu" style="display: none;">
+									<li nav-item my-auto><a class="" href="journal-of-humanitise.php"><span>ASUU Journal of Humanities
+											</span> </a></li>
+									<li nav-item my-auto><a class="" href="journal-social-science.php"><span>ASUU Journal of Social Sciences
+											</span> </a></li>
+									<li nav-item my-auto><a class="" href="journal-science.php"><span>ASUU Journal of Science
+											</span> </a></li>
 
-			
+								</ul>
+							</li>
+							<li class="nav-item my-auto">
+								<a class="nav-link" href="submit_manuscript.php"><span>Submit Manuscript</span></a>
+							</li>
+							<li class="nav-item my-auto pr-3 d-none d-lg-block">
+								<span>
+									Hi : <?php
+											$alif = $pdo->prepare("SELECT fname,onames FROM ejournal_users WHERE email=?");
+											$alif->execute(array($_SESSION['username']));
+											$data_array = $alif->fetchAll(PDO::FETCH_ASSOC);
+											$first_name = $data_array[0]['fname'] . ' ' . $data_array[0]['onames'];
+											echo $first_name;
+											?>
 
-</div>
+								</span>
+							</li>
+							<li class="dropdown nav-item my-auto">
+								<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><span> <i class="fas fa-user    "></i> </span> </a>
+								<ul class="dropdown-menu al-menu-right" role="menu" style="display: none;">
+									<li nav-item my-auto><a class="" href="user-profile.php"><span>Profile
+											</span> </a></li>
+									<li nav-item my-auto><a class="" href="change-passwod.php"><span>Change Password
+											</span> </a></li>
+									<li nav-item my-auto><a class="" href="logout.php"><span>logout
+											</span> </a></li>
+
+
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</nav>
+				<!-- nav header ends -->
+
+
+
+			</div>
 		</header>
-

@@ -130,7 +130,7 @@ if (!isset($_SESSION['username'])) {
 									<li nav-item my-auto><a class="" href="add-user.php"><span>Assign Reviewer</span>
 										</a>
 									</li>
-									<li nav-item my-auto><a class="" href="list-user.php"><span>List of Reviewers</span>
+									<li nav-item my-auto><a class="" href="list-user.php"><span>Change Role</span>
 										</a></li>
 									<li nav-item my-auto><a class="" href="change-passwod.php"><span>Change Password
 											</span> </a></li>

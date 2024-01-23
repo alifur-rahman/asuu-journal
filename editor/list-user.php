@@ -44,8 +44,52 @@ require_once('header.php');
      </div>
 </main>
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal">
+     <div class="modal-dialog" role="document">
+          <div class="modal-content">
+               <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                              aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Change Role
+                    </h4>
+               </div>
+               <div class="modal-body">
+                    <form id="assignRoleForm" action="#" method="post">
+                         <p><span id="authSeleted"></span> is Selected</p>
+                         <p class="text-info" id="modalError"></p>
+
+                         <div class="form-group">
+                              <select class="form-select custom-select" aria-label="Default select example" id='rank'
+                                   name="role" required>
+                                   <option value="alif" selected>---- Select
+                                        Role----</option>
+                                   <option value="Reviewer">Reviewer</option>
+                                   <option value="Editor">Editor</option>
+                              </select>
+                         </div>
+                         <input id="alUserId" type="hidden" name="userId" value="">
+
+                         <div class="modal-footer">
+                              <img class="popLoading" style="display: none; width: 100%; max-width: 40px;"
+                                   id="popLoading" src="img/source.gif" alt="loding">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button type="submit" id="popsubmit" name="modal_submit"
+                                   class="btn btn-primary">Submit</button>
+                         </div>
+                    </form>
+               </div>
+
+          </div>
+     </div>
+</div>
+<!-- end modal  -->
+
+
 <?php require_once('footer.php'); ?>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
 <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
      $(document).ready(function () {
@@ -74,4 +118,59 @@ require_once('header.php');
           });
 
      });
+</script>
+<script>
+     function editUserRole(event, id, name) {
+          event.preventDefault();
+          $('#alUserId').val(id);
+          $('#authSeleted').html(name);
+          $('#myModal').modal('show');
+          $('#myModal').on('hidden.bs.modal', function () {
+               $('#alUserId').val('');
+               $('#modalError').html('');
+          });
+          return false;
+     }
+
+     $(document).on("click", ".al_edit_roleModal", function (e) {
+          event.preventDefault();
+          $('#alUserId').val($(this).data('user-id'));
+          $('#authSeleted').html($(this).data('fullname'));
+          $('#myModal').modal('show');
+          $('#myModal').on('hidden.bs.modal', function () {
+               $('#alUserId').val('');
+               $('#modalError').html('');
+               $('#authSeleted').html('');
+          })
+     })
+
+
+     $(document).on('submit', '#assignRoleForm', function (e) {
+          e.preventDefault();
+          $('#popLoading').show();
+          $('#popsubmit').attr('disabled', true);
+          $.ajax({
+               url: "develop/ajaxAssignRole.php",
+               type: "POST",
+               data: $('#assignRoleForm').serialize(),
+               success: function (data) {
+                    const res = JSON.parse(data);
+                    $('#modalError').html(res.message);
+                    console.log(data);
+                    $('#popLoading').hide();
+                    $('#popsubmit').attr('disabled', false);
+                    if (res.status == true) {
+                         setTimeout(function () {
+                              $('#myModal').modal('hide');
+                              $('#jquery-datatable-ajax-php').DataTable().ajax.reload();
+                         }, 2000);
+                    }
+
+
+               }
+          });
+     });
+
+
+
 </script>
