@@ -1,44 +1,51 @@
 <?php require_once('header.php'); 
+require_once('config.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
 include('../login/include/db2.php');
 require '../../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 if(isset($_POST['submit'])){
 
-     $f_name = $_POST['f_name'];
-     $onames = $_POST['onames'];
-     $mobile = $_POST['mobile'];
-     $institute = $_POST['institute'];
-     
-     if(empty($f_name)){
-          $msg = 'First Name is Empty';
+     $n_password = $_POST['n_password'];
+     $c_password = $_POST['c_password'];
+
+     if(empty($n_password)){
+          $msg = 'Please Type Your Password';
      }
-    else if(empty($onames)){
-          $msg = 'other Names is Empty';
+     else if($n_password != $c_password){
+          $msg = 'Re-typeable Password is not match';
      }
-	else if(empty($institute)){
-		$msg = 'institute is Empty';
-	}
-	
-		else if(empty($mobile)){
-		$msg = 'Mobile is Empty';
-	}
      else{
           $email = $_SESSION['username'];
+          $dbPassowd = md5($c_password);
           $fname = $_SESSION['fname'];
 
-          $stm = $pdo->prepare("UPDATE ejournal_users SET fname=?, onames=?, institution=?, phone=? WHERE email=?");
-		$stm->execute(array($f_name,$onames,$institute, $mobile,$email));
+        $stm = $pdo->prepare("UPDATE ejournal_users SET password=? WHERE email=?");
+		$stm->execute(array($dbPassowd,$email));
 
+         
           $lastID = $DB->lastInsertId();
           
                 $message = '<html><head>
-                        <title>ASUU - Journal profile update</title>
+                        <title>ASUU - Journal</title>
                         </head>
                         <body>';
                 $message .= '<h1>Hello ' . $fname . '!</h1>';
-                $message .= '<p> Thank you for Getting in Touch Academic Staff Union of Universities E-journal, Your profile has been changed successfully.' .  '</p>';
+                $message .= '<p> Thank you for Getting in Touch Academic Staff Union of Universities E-journal, Your password has been changed successfully.' .  '</p>';
+                $link = 'https://ejournals.asuu.org.ng/login/';
+                $message .="<a href = ''></a>"; 
+                $message .= '<p> Here are your new login password
+                
+                           <ul> 
+                           <li>Click the Link to Login : ' . $link . ' </li>
+                           <li>New Password : ' . $c_password . ' </li>
+                </p>';
+                
+                
+                echo '<br>';
+                
                 $message .= '<p>Thank you, <br> Ejournal Academic Staff Union of Universities
                 
                 </p>';
@@ -59,15 +66,14 @@ if(isset($_POST['submit'])){
 				$mail->CharSet = "UTF-8";
 				$mail->From = "noreply@asuu.org.ng";
 				$mail->addAddress($email);
-				$mail->Subject="Your profile has been updated successfully.";
+				$mail->Subject="Your password has been changed successfully.";
 				$mail->SMTPDebug = 0;
 				$mail->Debugoutput = function($str, $level) {echo "debug level $level; message: $str"; echo "<br>";};
                 $mail->MsgHTML($message);
           
-          
                 try {
                   $mail->send();
-                  $msg2 = "Profile Successfully updated ";
+                  $msg2 = "Successfully change your password";
                   $msgType = "success";
                 } catch (Exception $ex) {
                   $msg = $ex->getMessage();
@@ -151,7 +157,7 @@ if(isset($_POST['submit'])){
 								<div class="right_section">
 									<div class="journals_filter text-center">
 									  
-										<h4>Update Your Profile</h4>
+										<h4>Change Your Password</h4>
 									</div>
                                    
 							<div>   
@@ -168,45 +174,21 @@ if(isset($_POST['submit'])){
                    
                 }
 			
-			$alif = $pdo->prepare("SELECT * FROM ejournal_users WHERE email=?");
-               $alif->execute(array($_SESSION['username']));
-               $data_array = $alif->fetchAll(PDO::FETCH_ASSOC);
-               $first_name = $data_array[0]['fname'];
-               $m_name =  $data_array[0]['onames'];
-               $institute =  $data_array[0]['institution'];
-               $dbmobile =  $data_array[0]['phone'];
+			
 			
 			
 			?>
 									
 									<div class="form-group">
-										<input class="form-control" type="text" id="f_name" name="f_name" placeholder="First Name"  value="<?php echo $first_name; ?>" required>
-									</div>
-									<div class="form-group">
-										<input class="form-control" type="text" id="m_name" name="onames" placeholder="Middle Name"  value="<?php echo $m_name; ?>" required>
-									</div>
-                                             <!-- <div class="form-group">
-										<input class="form-control" type="text" id="l_name" name="l_name" placeholder="Last Name"  value="<?php echo $last_name; ?>" required>
-									</div> -->
-									    <div class="form-group">
-										<input class="form-control" type="text" id="institute" name="institute" placeholder="institute"  value="<?php echo $institute; ?>" required>
-									</div>
-									    <!-- <div class="form-group">
-										<input class="form-control" type="text" id="rank" name="rank" placeholder="Rank"  value="<?php echo $rank; ?>" required>
-									</div>
-									    <div class="form-group">
-										<input class="form-control" type="text" id="displine" name="displine" placeholder="displine"  value="<?php echo $displine; ?>" required>
-									</div> -->
-									<div class="form-group">
-										<input class="form-control" type="text" id="mobile" name="mobile" placeholder="Mobile Number" value="<?php echo $dbmobile; ?>" required>
+										<input class="form-control" type="password" id="" name="n_password" placeholder="Type New Password" required>
 									</div>
                                              <div class="form-group">
-										<input class="form-control" type="email" id="email" placeholder="Email" name="email" readonly value="<?php echo $_SESSION['username']; ?>" required>
+										<input class="form-control" type="password" id="" name="c_password" placeholder="Re-type Your new Password" required>
 									</div>
-                                             
+									
 									
                                   			<div class="form-group text-center mb-3">
-									    <input name="submit" class="btn btn-outline-primary btn-lg btn-block" type="submit" value="Update Profile">
+									    <input name="submit" class="btn btn-outline-primary btn-lg btn-block" type="submit">
 									</div>
                                 		</form>
                                 	</div>

@@ -1,35 +1,42 @@
+<footer class="bg-dark text-center text-white">
+  <!-- Grid container -->
 
+  <!-- Grid container -->
 
-	  <!-- Site footer -->
-	  <footer class="site-footer">
-      <div class="container">
-        <div class="row">
-         
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">Copyright &copy; <?php echo date("Y"); ?> All Rights Reserved by 
-         <a class="text-danger" href="#">Academic Staff Union of Universities (ASUU)</a>.
-            </p>
-          </div>
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    &copy; <?php echo date("Y"); ?> Copyright:
+    <a class="text-white" href="https://asuu.org.ng/">Academic Staff Union of Universities (ASUU)</a>
+  </div>
+  <div>
+    <section class="mb-1">
+      <!-- Facebook -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
 
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <ul class="social-icons">
-              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a class="dribbble" href="#"><i class="fa fa-instagram"></i></a></li>
-              <!-- <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>    -->
-            </ul>
-          </div>
-        </div>
-      </div>
+      <!-- Twitter -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+
+      <!-- Google -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
+
+      <!-- Instagram -->
+      <!-- <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a> -->
+
+      <!-- Linkedin -->
+      <!-- <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a> -->
+
+      <!-- Github -->
+      <!-- <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a> -->
+    </section>
+  </div>
+  <!-- Copyright -->
 </footer>
-	<!-- scripts -->
+<!-- scripts -->
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>

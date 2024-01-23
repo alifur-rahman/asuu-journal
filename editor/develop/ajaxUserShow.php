@@ -64,7 +64,7 @@ $ids = 1;
 foreach ($empRecords as $row) {
     $actionsButtons = '<div class="d-flex justify-content-space-between gap-2 ">
                              <a href="delete-user.php?uid=' . $row['user_id'] . '" class="action-bbtn" onclick="alert(\'Are you Sure!\')"> <i class="fas fa-trash-alt"></i> </a>
-                             <a href="#" class="action-bbtn" onclick="alert(\'Are you Sure!\')"> <i class="fas fa-pen"></i> </a>
+                             <a href="#" class="action-bbtn al_edit_roleModal" data-user-id=' . $row['user_id'] . ' data-fullname="' . $row['fname'] . " " . $row['onames'] . '"> <i class="fas fa-pen"></i> </a>
 
                          </div>';
 
