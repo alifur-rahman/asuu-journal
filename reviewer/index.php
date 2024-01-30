@@ -18,6 +18,16 @@ $stm = $pdo->prepare("SELECT * FROM manuscripts_docs WHERE email=?");
 $stm->execute(array($user_email));
 $allCount = $stm->rowCount();
 
+$sgts = $pdo->prepare("SELECT user_id FROM ejournal_users WHERE email=?");
+$sgts->execute(array($user_email));
+$UserArrar = $sgts->fetchAll(PDO::FETCH_ASSOC);
+
+$stnp = $pdo->prepare("SELECT m_id FROM assigned_script WHERE u_id=?");
+$stnp->execute(array($UserArrar[0]['user_id']));
+$assignedCount = $stnp->rowCount();
+
+
+
 $type1 = "Journal of Humanities";
 $type2 = "Journal Social Sciences";
 $type3 = "Journal of Science";
@@ -44,7 +54,9 @@ $type4 = "Magazines";
 		<a href="mns_tracking.php">Submission History <span class="pull-right badge">
 				<?php echo $allCount; ?>
 			</span></a>
-		<a href="#">Manuscript’s Assigned <span class="pull-right badge"></span></a>
+		<a href="#">Manuscript’s Assigned <span class="pull-right badge">
+				<?php echo $assignedCount; ?>
+			</span></a>
 	</div>
 	<div class="container">
 

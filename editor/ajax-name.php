@@ -1,11 +1,9 @@
 <?php require_once('config.php');
 
-$displine_name = $_GET['displine'];
-$institute_data = $_GET['institute_data'];
-$rank_data = $_GET['rank_data'];
+$areaSpe = $_GET['areaSpe'];
 
-$alif = $pdo->prepare("SELECT fname,onames,user_id FROM ejournal_users WHERE rank=? AND institution=? AND displine=?");
-$alif->execute(array($rank_data, $institute_data, $displine_name));
+$alif = $pdo->prepare("SELECT fname,onames,user_id FROM ejournal_users WHERE displine=? AND user_role=? ");
+$alif->execute(array($areaSpe, 'Reviewer'));
 $result = $alif->fetchAll(PDO::FETCH_ASSOC);
 
 // $array = array_column($result, 'fname', 'mName' , 'lname');

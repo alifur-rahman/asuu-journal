@@ -125,7 +125,7 @@
 </style>
 
 <script>
-	(function(e, t, n) {
+	(function (e, t, n) {
 		var r = e.querySelectorAll("html")[0];
 		r.className = r.className.replace(/(^|\s)no-js(\s|$)/, "$1js$2")
 	})(document, window, 0);
@@ -168,30 +168,37 @@
 								<form action="upload.php" method="POST" enctype="multipart/form-data">
 
 									<div class="input-group">
-										<select class="form-select custom-select" aria-label="Default select example" name="ty" required>
+										<select class="form-select custom-select" aria-label="Default select example"
+											name="ty" required>
 											<option selected>----Journal Type----</option>
 											<option value="Journal of Humanities">Journal of Humanities (AJH)</option>
-											<option value="Journal Social Sciences">Journal of Social Sciences(AJSS)</option>
+											<option value="Journal Social Sciences">Journal of Social Sciences(AJSS)
+											</option>
 											<option value="Journal of Science">ASUU Journal of Science (AJS)</option>
 										</select>
 										<!--<div class="al_required">*</div>-->
 										<div class="input-group-append custom">
-											<span class="input-group-text"><i class="fa fa-book" aria-hidden="true"></i></span>
+											<span class="input-group-text"><i class="fa fa-book"
+													aria-hidden="true"></i></span>
 										</div>
 									</div>
 									<div class="input-group">
-										<input class="form-control" type="text" id="lname" name="title" placeholder="Article Title " required>
+										<input class="form-control" type="text" id="lname" name="title"
+											placeholder="Article Title " required>
 										<div class="al_required">*</div>
 										<div class="input-group-append custom">
-											<span class="input-group-text"><i class="fa fa-text-height" aria-hidden="true"></i></span>
+											<span class="input-group-text"><i class="fa fa-text-height"
+													aria-hidden="true"></i></span>
 										</div>
 
 									</div>
 									<div class="input-group">
-										<input class="form-control" type="text" id="area" name="displine" placeholder="Displine : i.e Computer Science " required>
+										<input class="form-control" type="text" id="area" name="displine"
+											placeholder="Displine : i.e Computer Science " required>
 										<div class="al_required">*</div>
 										<div class="input-group-append custom">
-											<span class="input-group-text"><i class="fa fa-book" aria-hidden="true"></i></span>
+											<span class="input-group-text"><i class="fa fa-book"
+													aria-hidden="true"></i></span>
 										</div>
 
 									</div>
@@ -206,7 +213,8 @@
 									<div class="row">
 										<div class="col-md-3">
 											<div class="form-group">
-												<select class="form-select custom-select" aria-label="Default select example" name="r1-tittle" required>
+												<select class="form-select custom-select"
+													aria-label="Default select example" name="r_tittles[]" required>
 													<option>Tittle</option>
 													<option>Prof.</option>
 													<option>Dr.</option>
@@ -218,44 +226,52 @@
 
 										<div class="col-md-9">
 											<div class="input-group">
-												<input class="form-control" type="text" id="area" name="r1-fname" placeholder=" Full Name i.e Abubakar Ibrahim" required>
+												<input class="form-control" type="text" id="area" name="r_names[]"
+													placeholder=" Full Name i.e Abubakar Ibrahim" required>
 												<div class="al_required">*</div>
 												<div class="input-group-append custom">
-													<span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+													<span class="input-group-text"><i class="fa fa-user"
+															aria-hidden="true"></i></span>
 												</div>
 											</div>
 
 										</div>
 										<div class="col-md-6">
 											<div class="input-group">
-												<input class="form-control" type="email" id="area" name="r1-email" placeholder=" Email Address" required>
+												<input class="form-control" type="email" id="area" name="r_emails[]"
+													placeholder=" Email Address" required>
 												<div class="al_required">*</div>
 												<div class="input-group-append custom">
-													<span class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+													<span class="input-group-text"><i class="fa fa-envelope"
+															aria-hidden="true"></i></span>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="input-group">
-												<input class="form-control" type="number" id="area" name="r1-phone" placeholder=" Mobile Number" required>
+												<input class="form-control" type="number" id="area" name="r_phones[]"
+													placeholder=" Mobile Number" required>
 												<div class="input-group-append custom">
-													<span class="input-group-text"><i class="fa fa-phone" aria-hidden="true"></i></span>
+													<span class="input-group-text"><i class="fa fa-phone"
+															aria-hidden="true"></i></span>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="input-group">
-										<textarea class="form-control" name="r1-address" placeholder=" Address: i.e University, Faculty, Department"></textarea required>
+										<textarea class="form-control" name="r_address[]"
+											placeholder=" Address: i.e University, Faculty, Department"></textarea required>
 										<div class="al_required">*</div>
 												<div class="input-group-append custom">
 													<span class="input-group-text"><i class="fa fa-address-card-o" aria-hidden="true"></i></span>
 												</div>
 									</div>
 									<div class="input-group">
-										<textarea class="form-control" name="r1-reason" placeholder="Reason"></textarea>
+										<textarea class="form-control" name="r_reason[]" placeholder="Reason"></textarea>
 										<div class="al_required">*</div>
 										<div class="input-group-append custom">
-											<span class="input-group-text"><i class="fa fa-tasks" aria-hidden="true"></i></span>
+											<span class="input-group-text"><i class="fa fa-tasks"
+													aria-hidden="true"></i></span>
 										</div>
 									</div>
 									<br>
@@ -263,7 +279,8 @@
 									<div class="row">
 										<div class="col-md-3">
 											<div class="form-group">
-												<select class="form-select custom-select" aria-label="Default select example" name="r2-tittle" required>
+												<select class="form-select custom-select"
+													aria-label="Default select example" name="r_tittles[]" required>
 													<option>Tittle</option>
 													<option>Prof.</option>
 													<option>Dr.</option>
@@ -274,43 +291,51 @@
 
 										<div class="col-md-9">
 											<div class="input-group">
-												<input class="form-control" type="text" id="area" name="r2-fname" placeholder=" Full Name i.e Abubakar Ibrahim" required>
+												<input class="form-control" type="text" id="area" name="r_names[]"
+													placeholder=" Full Name i.e Abubakar Ibrahim" required>
 												<div class="al_required">*</div>
 												<div class="input-group-append custom">
-													<span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+													<span class="input-group-text"><i class="fa fa-user"
+															aria-hidden="true"></i></span>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="input-group">
-												<input class="form-control" type="email" id="area" name="r2-email" placeholder=" Email Address" required>
+												<input class="form-control" type="email" id="area" name="r_emails[]"
+													placeholder=" Email Address" required>
 												<div class="al_required">*</div>
 												<div class="input-group-append custom">
-													<span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+													<span class="input-group-text"><i class="fa fa-user"
+															aria-hidden="true"></i></span>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="input-group">
-												<input class="form-control" type="number" id="area" name="r2-phone" placeholder=" Mobile Number" required>
+												<input class="form-control" type="number" id="area" name="r_phones[]"
+													placeholder=" Mobile Number" required>
 												<div class="input-group-append custom">
-													<span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+													<span class="input-group-text"><i class="fa fa-user"
+															aria-hidden="true"></i></span>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="input-group">
-										<textarea class="form-control" name="r2-address" placeholder=" Address: i.e University, Faculty, Department"></textarea required>
+										<textarea class="form-control" name="r_address[]"
+											placeholder=" Address: i.e University, Faculty, Department"></textarea required>
 											<div class="al_required">*</div>
 												<div class="input-group-append custom">
 													<span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
 												</div>
 									</div>
 									<div class="input-group">
-										<textarea class="form-control" name="r2-reason" placeholder="Reason"></textarea>
+										<textarea class="form-control" name="r_reason[]" placeholder="Reason"></textarea>
 										<div class="al_required">*</div>
 										<div class="input-group-append custom">
-											<span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+											<span class="input-group-text"><i class="fa fa-user"
+													aria-hidden="true"></i></span>
 										</div>
 									</div>
 									<br>
@@ -318,7 +343,8 @@
 									<div class="row">
 										<div class="col-md-3">
 											<div class="form-group">
-												<select class="form-select custom-select" aria-label="Default select example" name="r3-tittle" required>
+												<select class="form-select custom-select"
+													aria-label="Default select example" name="r_tittles[]" required>
 													<option>Tittle</option>
 													<option>Prof.</option>
 													<option>Dr.</option>
@@ -330,52 +356,64 @@
 
 										<div class="col-md-9">
 											<div class="input-group">
-												<input class="form-control" type="text" id="area" name="r3-fname" placeholder=" Full Name i.e Abubakar Ibrahim" required>
+												<input class="form-control" type="text" id="area" name="r_names[]"
+													placeholder=" Full Name i.e Abubakar Ibrahim" required>
 												<div class="al_required">*</div>
 												<div class="input-group-append custom">
-													<span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+													<span class="input-group-text"><i class="fa fa-user"
+															aria-hidden="true"></i></span>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="input-group">
-												<input class="form-control" type="email" id="area" name="r3-email" placeholder=" Email Address" required>
+												<input class="form-control" type="email" id="area" name="r_emails[]"
+													placeholder=" Email Address" required>
 												<div class="al_required">*</div>
 												<div class="input-group-append custom">
-													<span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+													<span class="input-group-text"><i class="fa fa-user"
+															aria-hidden="true"></i></span>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="input-group">
-												<input class="form-control" type="number" id="area" name="r3-phone" placeholder=" Mobile Number" required>
+												<input class="form-control" type="number" id="area" name="r_phones[]"
+													placeholder=" Mobile Number" required>
 												<div class="input-group-append custom">
-													<span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+													<span class="input-group-text"><i class="fa fa-user"
+															aria-hidden="true"></i></span>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="input-group">
-										<textarea class="form-control" name="r3-address" placeholder=" Address: i.e University, Faculty, Department"></textarea required>
+										<textarea class="form-control" name="r_address[]"
+											placeholder=" Address: i.e University, Faculty, Department"></textarea required>
 											<div class="al_required">*</div>
 												<div class="input-group-append custom">
 													<span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
 												</div>
 									</div>
 									<div class="input-group">
-										<textarea class="form-control" name="r3-reason" placeholder="Reason"></textarea>
+										<textarea class="form-control" name="r_reason[]" placeholder="Reason"></textarea>
 										<div class="al_required">*</div>
 										<div class="input-group-append custom">
-											<span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+											<span class="input-group-text"><i class="fa fa-user"
+													aria-hidden="true"></i></span>
 										</div>
 									</div>
 									<div class="form-group">
 										<!-- <input class="form-control" type="file" id="Upload" name="Upload" required> -->
 
 										<div class="box">
-											<input type="file" name="Upload" id="file-2" class="inputfile inputfile-2 d-none" data-multiple-caption="{count} files selected" multiple />
-											<label for="file-2" class="form-control"><svg xmlns="#" width="20" height="17" viewBox="0 0 20 17">
-													<path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
+											<input type="file" name="Upload" id="file-2"
+												class="inputfile inputfile-2 d-none"
+												data-multiple-caption="{count} files selected" multiple />
+											<label for="file-2" class="form-control"><svg xmlns="#" width="20"
+													height="17" viewBox="0 0 20 17">
+													<path
+														d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
 												</svg> <span>Choose a Word Doc file&hellip;</span></label>
 
 										</div>
@@ -387,7 +425,8 @@
 									</div>
 
 									<div class="form-group text-center mb-3">
-										<input class="btn btn-outline-primary btn-lg btn-block" type="submit" value="Submit Manuscript">
+										<input class="btn btn-outline-primary btn-lg btn-block" type="submit"
+											value="Submit Manuscript">
 									</div>
 								</form>
 							</div>
