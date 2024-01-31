@@ -54,7 +54,7 @@ $type4 = "Magazines";
 		<a href="mns_tracking.php">Submission History <span class="pull-right badge">
 				<?php echo $allCount; ?>
 			</span></a>
-		<a href="#">Manuscript’s Assigned <span class="pull-right badge">
+		<a href="assigned_script.php">Manuscript’s Assigned <span class="pull-right badge">
 				<?php echo $assignedCount; ?>
 			</span></a>
 	</div>
