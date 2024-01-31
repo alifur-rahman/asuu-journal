@@ -1,29 +1,29 @@
 <?php
-require '../../vendor/autoload.php';
+// require '../../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 
 if (isset($_POST["submit"])) {
   include('include/db2.php');
 
-  $mail = new PHPMailer();
-  $mail->Encoding = "base64";
-  $mail->SMTPAuth = true;
-  $mail->Host = "smtp.zeptomail.com";
-  $mail->Port = 587;
-  $mail->Username = "emailapikey";
-  $mail->Password = 'wSsVR60k/h/zCal/zTf/Lu07nlpVVV+jFxx1iQPyunP6Sq3F9sdpwxfKUQb0GPdJEWBrHGZHrb8smxYBhzQO2tokn1kJDiiF9mqRe1U4J3x17qnvhDzDWG9elxCLKoMAxgpsmWhlEs4n+g==';
-  $mail->SMTPSecure = 'TLS';
-  $mail->isSMTP();
-  $mail->IsHTML(true);
-  $mail->CharSet = "UTF-8";
-  $mail->From = "noreply@asuu.org.ng";
-  $mail->addAddress($_POST["email"]);
-  $mail->Subject = "Author's Registrations";
-  $mail->SMTPDebug = 0;
-  $mail->Debugoutput = function ($str, $level) {
-    echo "debug level $level; message: $str";
-    echo "<br>";
-  };
+  // $mail = new PHPMailer();
+  // $mail->Encoding = "base64";
+  // $mail->SMTPAuth = true;
+  // $mail->Host = "smtp.zeptomail.com";
+  // $mail->Port = 587;
+  // $mail->Username = "emailapikey";
+  // $mail->Password = 'wSsVR60k/h/zCal/zTf/Lu07nlpVVV+jFxx1iQPyunP6Sq3F9sdpwxfKUQb0GPdJEWBrHGZHrb8smxYBhzQO2tokn1kJDiiF9mqRe1U4J3x17qnvhDzDWG9elxCLKoMAxgpsmWhlEs4n+g==';
+  // $mail->SMTPSecure = 'TLS';
+  // $mail->isSMTP();
+  // $mail->IsHTML(true);
+  // $mail->CharSet = "UTF-8";
+  // $mail->From = "noreply@asuu.org.ng";
+  // $mail->addAddress($_POST["email"]);
+  // $mail->Subject = "Author's Registrations";
+  // $mail->SMTPDebug = 0;
+  // $mail->Debugoutput = function ($str, $level) {
+  //   echo "debug level $level; message: $str";
+  //   echo "<br>";
+  // };
 
 
   //Authentication
@@ -53,7 +53,7 @@ if (isset($_POST["submit"])) {
     } else {
 
 
-      $sql = "INSERT INTO `ejournal_users` (`fname`,`onames`,`phone`,`email`,`password`,`institution`,`user_role`,`redirect`, `rank`, `displine`) VALUES " . "( :fname,:onames, :phone, :email , :password, :institution, :user_role, :redirect, :rank , :displine, :area_specialization)";
+      $sql = "INSERT INTO `ejournal_users` (`fname`,`onames`,`phone`,`email`,`password`,`institution`,`user_role`,`redirect`, `rank`, `displine`, `area_specialization`) VALUES " . "( :fname,:onames, :phone, :email , :password, :institution, :user_role, :redirect, :rank , :displine, :area_specialization)";
       $stmt = $DB->prepare($sql);
       $stmt->bindValue(":fname", $fname);
       $stmt->bindValue(":onames", $onames);

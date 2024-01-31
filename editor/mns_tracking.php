@@ -123,7 +123,7 @@ $user_email = $_SESSION['username'];
 
 								<div _ngcontent-nqw-c11="" class="search-icon">
 									<button _ngcontent-nqw-c11="" class="fa fa-search form-control" aria-label="Search"
-										class="fa fa-search" type="submit"></button>
+										type="submit"></button>
 								</div>
 							</form>
 
@@ -290,11 +290,96 @@ $user_email = $_SESSION['username'];
 												<li class="list-group-item">
 
 
-
+													&ensp;&ensp; <a onclick="return(false);" href="#"><i class="fas fa-book"
+															data-toggle="modal" data-target="#suggestedReview<?php echo $a; ?>">
+															Suggested Reviewer</i> </a>
 
 													&ensp;&ensp; <a onclick="return(false);" href="#"><i class="fas fa-plus"
 															data-toggle="modal" data-target="#myModal<?php echo $a; ?>"> Asign
 															Reviewer</i> </a>
+
+
+
+
+
+
+
+
+
+													<!-- Modal -->
+
+													<div class="modal fade" id="suggestedReview<?php echo $a; ?>">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal"
+																		aria-label="Close"><span
+																			aria-hidden="true">&times;</span></button>
+																	<h4 class="modal-title" id="myModalLabel">Suggested Reviewer
+																	</h4>
+																</div>
+																<div class="modal-body">
+
+																	<div class="al_suggested_reviwer_wrapper">
+																		<?php
+																		$stm = $pdo->prepare("SELECT * FROM suggested_reviwer WHERE manu_id=?");
+																		$stm->execute(array($row['m_id']));
+																		$sug_rev = $stm->fetchAll(PDO::FETCH_ASSOC);
+																		if (!empty($sug_rev)):
+																			$rID = 1;
+																			foreach ($sug_rev as $sug)
+
+																			: ?>
+
+
+
+																				<div class="al_suggested_reviwer_list">
+																					<p class="text-center">Reviewer
+																						<?php echo $rID++; ?>
+																					</p>
+
+																					<ul class="text-secondary">
+																						<li><b>Name : </b>
+																							<?php echo $sug['r_tittle'] . ' ' . $sug['r_name']; ?>
+																						</li>
+																						<li><b>Email : </b>
+																							<?php echo $sug['r_email']; ?>
+																						</li>
+																						<li><b>Phone : </b>
+																							<?php echo $sug['r_phone']; ?>
+																						</li>
+																						<li><b>Address : </b>
+																							<?php echo $sug['r_address']; ?>
+																						</li>
+																						<li><b>Reason : </b>
+																							<?php echo $sug['r_reason']; ?>
+																						</li>
+
+																					</ul>
+
+
+
+
+
+																				</div>
+
+																			<?php endforeach; ?>
+																		<?php else: ?>
+																			<p class="text-info">Suggested Reviewer not found</p>
+																		<?php endif; ?>
+
+
+																	</div>
+
+																</div>
+																<img class="popLoading" id="popLoadingReviwer"
+																	src="img/source.gif" alt="loding">
+															</div>
+														</div>
+													</div>
+													<!-- end modal  -->
+
+
 
 
 
@@ -308,66 +393,53 @@ $user_email = $_SESSION['username'];
 																	<button type="button" class="close" data-dismiss="modal"
 																		aria-label="Close"><span
 																			aria-hidden="true">&times;</span></button>
-																	<h4 class="modal-title" id="myModalLabel">Assign Reviewer
+																	<h4 class="modal-title" id="myModalLabel">Assign
+																		Reviewer
 																	</h4>
 																</div>
 																<div class="modal-body">
-																	<form action="#" method="post">
+																	<form action="mns_assign_reviwer.php" method="post">
 																		<div class="form-group">
-																			<select onchange="submite_institute(this.value);"
+																			<select id="getAreaSp" onchange="findNames()"
+																				class=" form-select custom-select"
+																				aria-label="Default select example"
+																				name="area_specialization" required>
+																				<option selected>---- Accademic Disciplines ----
+																				</option>
+																				<option value="ns">Natural Sciences</option>
+																				<option value="ss">Social Sciences</option>
+																				<option value="hu">Humanities</option>
+																				<option value="et">Engineering and Technology
+																				</option>
+																				<option value="ar">Arts</option>
+																			</select>
+																		</div>
+
+																		<div class="form-group">
+																			<select id="ShowAreaSp" onchange="findNames()"
 																				class="form-select custom-select"
 																				aria-label="Default select example"
-																				id="institute" name="institute" required>
-																				<option value="alif" selected>---- Select
-																					Institution----</option>
-																				<?php
-																				$institutionQry = $pdo->prepare("SELECT institution FROM ejournal_users WHERE user_role=?");
-																				$institutionQry->execute(array('reviewer'));
-																				$db_intution = $institutionQry->fetchAll(PDO::FETCH_ASSOC);
-																				$Runick = array_unique($db_intution, SORT_REGULAR);
-																				print_r($Runick);
-
-																				foreach ($Runick as $single_intution):
-																					?>
-																					<option
-																						value="<?php echo $single_intution['institution'] ?>">
-																						<?php echo $single_intution['institution'] ?>
-																					</option>
-																				<?php endforeach; ?>
-																			</select>
-																		</div>
-
-																		<div class="form-group">
-																			<select class="form-select custom-select"
-																				onchange="submite_rank(this.value);"
-																				aria-label="Default select example" id='rank'
-																				name="rank" required>
-																				<option value="alif" selected>---- Select
-																					Rank----</option>
-																			</select>
-																		</div>
-
-																		<div class="form-group">
-																			<select class="form-select custom-select"
-																				onchange="submite_displine(this.value);"
-																				aria-label="Default select example"
-																				id="displine" name="displine" required>
-																				<option value="alif" selected>---- Displine/Area
-																					of Specilization----</option>
+																				name="academic_disciplines" required>
+																				<option selected value="alif">---- Area
+																					Specialization ----
+																				</option>
 																			</select>
 																		</div>
 
 
+
 																		<div class="form-group">
 																			<select class="form-select custom-select"
-																				onchange="submite_names(this.value);"
+																				onchange="(this.value);"
 																				aria-label="Default select example" id="name"
-																				name="full_name" required>
+																				name="reviwer_id" required>
 																				<option value="alif" selected>----Names----
 																				</option>
 
 																			</select>
 																		</div>
+																		<input type="hidden" name="m_id"
+																			value="<?php echo $row['m_id']; ?>">
 
 
 
@@ -385,7 +457,9 @@ $user_email = $_SESSION['username'];
 																	alt="loding">
 															</div>
 														</div>
-														<!-- end modal  -->
+													</div>
+													<!-- end modal  -->
+
 											</ul>
 										</div>
 
@@ -448,85 +522,117 @@ $user_email = $_SESSION['username'];
 </div>
 <?php require_once('footer.php'); ?>
 <script>
-	function submite_institute(value) {
-		var loadImg = document.getElementById('popLoading');
-		loadImg.style.display = 'block';
-		$.ajax({
-			type: 'GET',
-			url: 'ajax-institute.php',
-			data: {
-				institute: value,
-			},
-			success: function (response) {
-				var rank_array = JSON.parse(response);
-				var p_rank = "";
-				for (let index = 0; index < rank_array.length; index++) {
-					p_rank += "<option value='" + rank_array[index] + "'>" + rank_array[index] + "</option>";
+	// function submite_institute(value) {
+	// 	var loadImg = document.getElementById('popLoading');
+	// 	loadImg.style.display = 'block';
+	// 	$.ajax({
+	// 		type: 'GET',
+	// 		url: 'ajax-institute.php',
+	// 		data: {
+	// 			institute: value,
+	// 		},
+	// 		success: function (response) {
+	// 			var rank_array = JSON.parse(response);
+	// 			var p_rank = "";
+	// 			for (let index = 0; index < rank_array.length; index++) {
+	// 				p_rank += "<option value='" + rank_array[index] + "'>" + rank_array[index] + "</option>";
+	// 			}
+	// 			document.getElementById('rank').innerHTML = "<option value='alif' selected>---- Select Rank----</option>" + p_rank;
+	// 			loadImg.style.display = 'none';
+	// 		}
+	// 	});
+	// 	submite_rank('alif');
+	// }
+
+	// function submite_rank(value) {
+	// 	var loadImg = document.getElementById('popLoading');
+	// 	loadImg.style.display = 'block';
+	// 	var institute_data = document.getElementById('institute').value;
+	// 	$.ajax({
+	// 		type: 'GET',
+	// 		url: 'ajax-rank.php',
+	// 		data: {
+	// 			rank: value,
+	// 			institute_data: institute_data
+	// 		},
+	// 		success: function (response) {
+	// 			var rank_array = JSON.parse(response);
+	// 			var p_area = "";
+	// 			for (let index = 0; index < rank_array.length; index++) {
+	// 				p_area += "<option value='" + rank_array[index] + "'>" + rank_array[index] + "</option>";
+	// 			}
+	// 			document.getElementById('displine').innerHTML = "<option value='alif' selected>---- Displine/Area of Specilization----</option>" + p_area;
+	// 			loadImg.style.display = 'none';
+	// 		}
+	// 	});
+	// 	submite_displine('alif');
+	// }
+
+	// al new comment 
+
+	const areadSpArray = {
+		'ns': ['Physics', 'Chemistry', 'Biology', 'Astronomy'],
+		'ss': ['Sociology', 'Psychology', 'Economics', 'Political Science'],
+		'hu': ['Physics', 'Chemistry', 'Biology', 'Astronomy'],
+		'et': ['Physics', 'Chemistry', 'Biology', 'Astronomy'],
+		'ar': ['Physics', 'Chemistry', 'Biology', 'Astronomy']
+	};
+	const initialOption = `<option selected value="alif">---- AreaSpecialization ----</option>`;
+
+	$('#getAreaSp').on('change', function (e) {
+		var getAreaSp = e.target.value;
+		$('#ShowAreaSp').empty();
+		$('#ShowAreaSp').append(initialOption);
+		if (areadSpArray[getAreaSp]) {
+			areadSpArray[getAreaSp].forEach(function (subject) {
+				$('#ShowAreaSp').append($('<option>', {
+					value: subject,
+					text: subject
+				}));
+			});
+		}
+	});
+
+	function findNames() {
+		var ShowAreaSp = document.getElementById('ShowAreaSp').value;
+		if (ShowAreaSp !== 'alif') {
+			var loadImg = document.getElementById('popLoading');
+			loadImg.style.display = 'block';
+			$.ajax({
+				type: 'GET',
+				url: 'ajax-name.php',
+				data: {
+					areaSpe: ShowAreaSp
+				},
+				success: function (response) {
+					var rank_array = JSON.parse(response);
+					var p_area = "";
+					for (let index = 0; index < rank_array.length; index++) {
+						var full_name = rank_array[index].fname + " " + rank_array[index].onames;
+						p_area += "<option value='" + rank_array[index].user_id + "'>" + full_name + "</option>";
+					}
+					document.getElementById('name').innerHTML = "<option value='alif' selected>---- Names----</option>" + p_area;
+					loadImg.style.display = 'none';
+
+					var popsubmitButton = document.getElementById('popsubmit');
+					if (rank_array.length !== 0) {
+						popsubmitButton.disabled = false;
+					} else {
+						popsubmitButton.disabled = true;
+					}
+
+
 				}
-				document.getElementById('rank').innerHTML = "<option value='alif' selected>---- Select Rank----</option>" + p_rank;
-				loadImg.style.display = 'none';
-			}
-		});
-		submite_rank('alif');
-	}
-
-	function submite_rank(value) {
-		var loadImg = document.getElementById('popLoading');
-		loadImg.style.display = 'block';
-		var institute_data = document.getElementById('institute').value;
-		$.ajax({
-			type: 'GET',
-			url: 'ajax-rank.php',
-			data: {
-				rank: value,
-				institute_data: institute_data
-			},
-			success: function (response) {
-				var rank_array = JSON.parse(response);
-				var p_area = "";
-				for (let index = 0; index < rank_array.length; index++) {
-					p_area += "<option value='" + rank_array[index] + "'>" + rank_array[index] + "</option>";
-				}
-				document.getElementById('displine').innerHTML = "<option value='alif' selected>---- Displine/Area of Specilization----</option>" + p_area;
-				loadImg.style.display = 'none';
-			}
-		});
-		submite_displine('alif');
-	}
-
-	function submite_displine(value) {
-		var loadImg = document.getElementById('popLoading');
-		loadImg.style.display = 'block';
-		var institute_data = document.getElementById('institute').value;
-		var rank_data = document.getElementById('rank').value;
-		$.ajax({
-			type: 'GET',
-			url: 'ajax-name.php',
-			data: {
-				displine: value,
-				institute_data: institute_data,
-				rank_data: rank_data
-			},
-			success: function (response) {
-				var rank_array = JSON.parse(response);
-				var p_area = "";
-				for (let index = 0; index < rank_array.length; index++) {
-					var full_name = rank_array[index].fname + " " + rank_array[index].onames;
-					p_area += "<option value='" + full_name + "'>" + full_name + "</option>";
-				}
-				document.getElementById('name').innerHTML = "<option value='alif' selected>---- Names----</option>" + p_area;
-				loadImg.style.display = 'none';
-
-			}
-		});
-	}
-
-	function submite_names(value) {
-		if (value == 'alif') {
-			document.getElementById('popsubmit').disabled = true;
-		} else {
-			document.getElementById('popsubmit').disabled = false;
+			});
 		}
 
 	}
+
+
+
+
+
+
+
+
 </script>
