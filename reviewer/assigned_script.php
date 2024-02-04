@@ -69,12 +69,33 @@ $user_id = $UserArrar[0]['user_id']
         height: U;
         display: none;
     }
+
+    .al_script_history_details {
+        background: #e4e4e4;
+        padding: 10px;
+        border-radius: 6px;
+        border-bottom: 1px solid;
+        margin-bottom: 10px;
+    }
 </style>
 
 <main class="main_content">
     <div class="container">
 
         <div class="row justify-content-center">
+
+            <div class="journals_filter text-center" style="padding-top: 40px;">
+                <?php
+                if (isset($_REQUEST["error"])) {
+                    echo '<div class="alert alert-danger" role="alert">
+                                ' . $_REQUEST["error"] . '
+                                </div>';
+                }
+
+                ?>
+
+            </div>
+
             <div class="col-lg-10">
                 <div class="row">
 
@@ -141,7 +162,8 @@ $user_id = $UserArrar[0]['user_id']
 
 
                                         <div class="pdf_section">
-                                            <div class="abstract_wrap" data-toggle="modal" data-target="#myModal" type="button">
+                                            <div class="abstract_wrap" data-toggle="modal"
+                                                data-target="#myModal-<?php echo $row['m_id']; ?>" type="button">
                                                 <i class="fas fa-caret-right"></i> <span>Manuscript History</span>
                                             </div>
 
@@ -213,9 +235,136 @@ $user_id = $UserArrar[0]['user_id']
 
                                                 </ul>
                                             </div>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <div class="update_manuScript" data-toggle="modal"
+                                                data-target="#UpdateModal-<?php echo $row['m_id']; ?>" type="button">
+                                                <i class="fas fa-edit"></i> <span>Update</span>
+                                            </div>
+
 
 
                                         </div>
+
+                                        <!-- Modal -->
+
+                                        <div class="modal fade" id="myModal-<?php echo $row['m_id']; ?>">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">Manuscript History
+                                                        </h4>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <div class="al_suggested_reviwer_wrapper">
+                                                            <?php
+                                                            $stm = $pdo->prepare("SELECT * FROM manu_histoory WHERE m_id=?");
+                                                            $stm->execute(array($row['m_id']));
+                                                            $sug_rev = $stm->fetchAll(PDO::FETCH_ASSOC);
+                                                            if (!empty($sug_rev)):
+                                                                $rID = 1;
+                                                                foreach ($sug_rev as $sug)
+                                                                : ?>
+                                                                    <div class="al_script_history_details">
+                                                                        <div class="d-flex justify-content-between"
+                                                                            style="margin-bottom: 10px;">
+                                                                            <div class="pdf_wrap" style="margin:0;">
+
+                                                                                <a href="/asuu-journal/author/<?php echo $sug['asset']; ?>"
+                                                                                    download="<?php echo $sug['asset']; ?>"
+                                                                                    style="font-size:16px"> <i
+                                                                                        class="fas fa-download    "></i>
+                                                                                    (Download)</a>
+                                                                            </div>
+                                                                            <div class="al_date_show" style="font-size:13px">
+                                                                                <?php
+                                                                                if (isset($sug['create_at'])) {
+                                                                                    $timestamp = strtotime($sug['create_at']);
+                                                                                    if ($timestamp !== false) {
+                                                                                        echo date("d-M-Y", $timestamp);
+                                                                                    }
+                                                                                }
+                                                                                ?>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="al_user_show" style="font-size:14px">
+                                                                            By :
+                                                                            <?php
+                                                                            $stmuser = $pdo->prepare("SELECT * FROM ejournal_users WHERE user_id=?");
+                                                                            $stmuser->execute(array($sug['u_id']));
+                                                                            $user = $stmuser->fetchAll(PDO::FETCH_ASSOC);
+                                                                            echo $user[0]['fname'] . " " . $user[0]['onames'];
+                                                                            ?>
+                                                                        </div>
+                                                                    </div>
+
+                                                                <?php endforeach; ?>
+                                                            <?php else: ?>
+                                                                <p class="text-info">There have no History at this moment </p>
+                                                            <?php endif; ?>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                    <img class="popLoading" id="popLoadingReviwer" src="img/source.gif"
+                                                        alt="loding">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end modal  -->
+
+                                        <!-- UpdateModal -->
+
+                                        <div class="modal fade" id="UpdateModal-<?php echo $row['m_id']; ?>">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">Update Manuscript
+                                                        </h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="update_manuscript.php" method="post"
+                                                            enctype="multipart/form-data">
+                                                            <div class="form-group">
+                                                                <div class="box">
+                                                                    <input type="file" name="Upload"
+                                                                        id="file-<?php echo $row['m_id']; ?>"
+                                                                        class="inputfile inputfile-2 d-none"
+                                                                        data-multiple-caption="{count} files selected" multiple />
+                                                                    <label for="file-<?php echo $row['m_id']; ?>"
+                                                                        class="form-control"><svg xmlns="#" width="20" height="17"
+                                                                            viewBox="0 0 20 17">
+                                                                            <path
+                                                                                d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
+                                                                        </svg> <span>Choose a Word Doc file&hellip;</span></label>
+
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" name="u_id" value="<?php echo $user_id; ?>">
+                                                            <input type="hidden" name="m_id" value="<?php echo $row['m_id']; ?>">
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button type="submit" id="popsubmit" name="modal_submit"
+                                                                    class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <img class="popLoading" id="popLoading" src="img/source.gif" alt="loding">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end modal  -->
+
+
+
                                     </div>
                                 </div>
                             <?php endforeach; endforeach;
